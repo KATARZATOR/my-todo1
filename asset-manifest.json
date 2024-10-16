@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/my-todo1/static/css/main.48dc6328.css",
-    "main.js": "/my-todo1/static/js/main.77ed95e4.js",
-    "index.html": "/my-todo1/index.html",
-    "main.48dc6328.css.map": "/my-todo1/static/css/main.48dc6328.css.map",
-    "main.77ed95e4.js.map": "/my-todo1/static/js/main.77ed95e4.js.map"
+    "main.css": "/KATARZATOR/my-todo1/static/css/main.48dc6328.css",
+    "main.js": "/KATARZATOR/my-todo1/static/js/main.77ed95e4.js",
+    "index.html": "/KATARZATOR/my-todo1/index.html",
+    "main.48dc6328.css.map": "/KATARZATOR/my-todo1/static/css/main.48dc6328.css.map",
+    "main.77ed95e4.js.map": "/KATARZATOR/my-todo1/static/js/main.77ed95e4.js.map"
   },
   "entrypoints": [
     "static/css/main.48dc6328.css",
