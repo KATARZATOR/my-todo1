@@ -21,7 +21,9 @@
     "lint": "eslint \"src/**/*.{js,jsx}\" \"src/index.js\"",
     "lint:fix": "eslint \"src/**/*.{js,jsx}\" \"src/index.js\" --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
@@ -58,8 +60,10 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "gh-pages": "^6.2.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3"
-  }
+  },
+  "homepage": "https://KATARZATOR.github.io/my-todo1"
 }
