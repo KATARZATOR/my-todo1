@@ -1,6 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import PropTypes from 'prop-types'
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`
+}
 
 function Task({
   id,
@@ -12,27 +18,27 @@ function Task({
   onFinishEditing,
   isEditing,
   createdAt,
+  remainingTime,
+  timerRunning,
+  onStartTimer,
+  onStopTimer,
 }) {
-  const [newLabel, setNewLabel] = useState(label)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onFinishEditing(id, newLabel)
-  }
-
   if (isEditing) {
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="edit"
-            value={newLabel}
-            onChange={(e) => setNewLabel(e.target.value)}
-            onBlur={() => onFinishEditing(id, newLabel)}
-            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-          />
-        </form>
-      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          onFinishEditing(id, e.target.elements[0].value)
+        }}
+      >
+        <input
+          type="text"
+          className="edit"
+          defaultValue={label}
+          onBlur={(e) => onFinishEditing(id, e.target.value)}
+          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+        />
+      </form>
     )
   }
 
@@ -46,8 +52,26 @@ function Task({
         onChange={onToggle}
       />
       <label htmlFor={`task-${id}`}>
-        <span className="description">{label}</span>
-        <span className="created">
+        <span className="title">{label}</span>
+        <span className="description">
+          {timerRunning ? (
+            <button
+              type="button"
+              className="icon icon-pause"
+              onClick={() => onStopTimer(id)}
+              aria-label="Pause timer"
+            />
+          ) : (
+            <button
+              type="button"
+              className="icon icon-play"
+              onClick={() => onStartTimer(id)}
+              aria-label="Start timer"
+            />
+          )}
+          {formatTime(remainingTime)}
+        </span>
+        <span className="description">
           created{' '}
           {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
         </span>
@@ -78,11 +102,17 @@ Task.propTypes = {
   onFinishEditing: PropTypes.func.isRequired,
   isEditing: PropTypes.bool.isRequired,
   createdAt: PropTypes.instanceOf(Date),
+  remainingTime: PropTypes.number,
+  timerRunning: PropTypes.bool,
+  onStartTimer: PropTypes.func.isRequired,
+  onStopTimer: PropTypes.func.isRequired,
 }
 
 Task.defaultProps = {
   completed: false,
   createdAt: new Date(),
+  remainingTime: 0,
+  timerRunning: false,
 }
 
 export default Task

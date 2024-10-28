@@ -9,15 +9,19 @@ function TaskList({
   onStartEditing,
   onFinishEditing,
   editingTaskId,
+  onStartTimer,
+  onStopTimer,
 }) {
   const elements = todos.map((item) => {
     const { id, ...itemProps } = item
+
+    const isEditing = editingTaskId === id
 
     return (
       <li
         key={id}
         className={`${item.completed ? 'completed' : ''} ${
-          editingTaskId === id ? 'editing' : ''
+          isEditing ? 'editing' : ''
         }`}
       >
         <Task
@@ -25,26 +29,21 @@ function TaskList({
           label={itemProps.label}
           completed={itemProps.completed}
           createdAt={itemProps.createdAt}
+          remainingTime={itemProps.remainingTime}
+          timerRunning={itemProps.timerRunning}
           onToggle={() => onToggleTaskCompletion(id)}
           onDeleted={() => onDeleted(id)}
           onStartEditing={() => onStartEditing(id)}
           onFinishEditing={onFinishEditing}
-          isEditing={editingTaskId === id}
+          isEditing={isEditing}
+          onStartTimer={onStartTimer}
+          onStopTimer={onStopTimer}
         />
       </li>
     )
   })
 
   return <ul className="todo-list">{elements}</ul>
-}
-
-TaskList.defaultProps = {
-  todos: [],
-  onDeleted: () => {},
-  onToggleTaskCompletion: () => {},
-  onStartEditing: () => {},
-  onFinishEditing: () => {},
-  editingTaskId: null,
 }
 
 TaskList.propTypes = {
@@ -54,13 +53,22 @@ TaskList.propTypes = {
       label: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
       createdAt: PropTypes.instanceOf(Date).isRequired,
+      remainingTime: PropTypes.number.isRequired,
+      timerRunning: PropTypes.bool.isRequired,
     })
   ),
-  onDeleted: PropTypes.func,
-  onToggleTaskCompletion: PropTypes.func,
-  onStartEditing: PropTypes.func,
-  onFinishEditing: PropTypes.func,
+  onDeleted: PropTypes.func.isRequired,
+  onToggleTaskCompletion: PropTypes.func.isRequired,
+  onStartEditing: PropTypes.func.isRequired,
+  onFinishEditing: PropTypes.func.isRequired,
   editingTaskId: PropTypes.number,
+  onStartTimer: PropTypes.func.isRequired,
+  onStopTimer: PropTypes.func.isRequired,
+}
+
+TaskList.defaultProps = {
+  todos: [],
+  editingTaskId: null,
 }
 
 export default TaskList

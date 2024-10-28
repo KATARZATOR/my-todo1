@@ -34,7 +34,6 @@ function Footer({ itemsLeft, filter, onFilterChange, onClearCompleted }) {
           </button>
         </li>
       </ul>
-
       <button
         type="button"
         className="clear-completed"
@@ -46,18 +45,11 @@ function Footer({ itemsLeft, filter, onFilterChange, onClearCompleted }) {
   )
 }
 
-Footer.defaultProps = {
-  itemsLeft: 0,
-  filter: 'all',
-  onFilterChange: () => {},
-  onClearCompleted: () => {},
-}
-
 Footer.propTypes = {
-  itemsLeft: PropTypes.number,
-  filter: PropTypes.string,
-  onFilterChange: PropTypes.func,
-  onClearCompleted: PropTypes.func,
+  itemsLeft: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  onClearCompleted: PropTypes.func.isRequired,
 }
 
 export default Footer
