@@ -36,7 +36,7 @@ function Task({
           className="edit"
           defaultValue={label}
           onBlur={(e) => onFinishEditing(id, e.target.value)}
-          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+          autoFocus // eslint-disable-line
         />
       </form>
     )

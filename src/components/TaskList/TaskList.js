@@ -14,15 +14,12 @@ function TaskList({
 }) {
   const elements = todos.map((item) => {
     const { id, ...itemProps } = item
-
     const isEditing = editingTaskId === id
 
     return (
       <li
         key={id}
-        className={`${item.completed ? 'completed' : ''} ${
-          isEditing ? 'editing' : ''
-        }`}
+        className={`${item.completed ? 'completed' : ''} ${isEditing ? 'editing' : ''}`}
       >
         <Task
           id={id}
